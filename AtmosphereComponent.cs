@@ -122,7 +122,7 @@ namespace AtmosphericDamage
                         byte voxelId;
                         List<IMySlimBlock> vBlocks = Utilities.GetBlocksContactingVoxel(grid, _planet, out voxelId);
                         VoxelDamageItem item;
-                        if (!Config.VOXEL_IDS.TryGetValue(voxelId, out item))
+                        if (!Config.VOXEL_IDS.TryGetValue(voxelId, out item) && vBlocks.Any())
                         {
                             MyLog.Default.WriteLine($"{voxelId} NOT FOUND");
                             item = Config.VOXEL_IDS.First().Value;
