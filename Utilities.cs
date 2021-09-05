@@ -137,8 +137,10 @@ namespace AtmosphericDamage
 
                                                           MyVoxelMaterialDefinition mat = planet.GetMaterialAt_R(ref s);
                                                           if (Config.VOXEL_IDS.ContainsKey(mat.Index))
+                                                          {
                                                               result.Add(block);
-                                                          id = mat.Index;
+                                                              id = mat.Index;
+                                                          }
                                                       }
                                                       catch
                                                       {
