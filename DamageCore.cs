@@ -182,14 +182,13 @@ namespace AtmosphericDamage
                 if (!_emitters.ContainsKey(e.Key))
                 {
                     MyParticleEffect eff;
-                    MyParticlesManager.TryCreateParticleEffect(e.Value, out eff);
-                    var mat = new MatrixD();
-                    mat.Translation = e.Key.GetPosition();
+                    MatrixD particleMatrix = e.Key.CubeGrid.WorldMatrix;
+                    Vector3D particlePosition = e.Key.GetPosition();
+                    MyParticlesManager.TryCreateParticleEffect(e.Value, out eff, ref particleMatrix, ref particlePosition, uint.MaxValue);
 
-                    eff.WorldMatrix = mat;
-                    eff.Start(e.Value, eff.Name);
                     if(e.Key.CubeGrid.GridSizeEnum == MyCubeSize.Small)
-                        eff.UserEmitterScale = 0.1f;
+                        eff.UserScale = 0.1f;
+
                     _emitters.Add(e.Key, eff);
                 }
             }
