@@ -223,7 +223,7 @@ namespace AtmosphericDamage
                     if (Config.ACID_RAIN && !Utilities.IsEntityCovered(entity, _sphere.Center))
                         _damageEntities.AddOrUpdate(character, Config.PLAYER_DAMAGE_AMOUNT);
 
-                    if (!Config.RADIATION)
+                    if (Config.RADIATION)
                     {
                         var comp = character.Components.Get<MyCharacterOxygenComponent>();
 
