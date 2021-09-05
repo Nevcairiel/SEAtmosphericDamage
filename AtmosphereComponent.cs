@@ -105,6 +105,9 @@ namespace AtmosphericDamage
 
         private void ProcessDamage()
         {
+            if (_topEntityCache == null)
+                return;
+
             foreach (IMyEntity entity in _topEntityCache)
             {
                 var grid = entity as IMyCubeGrid;
@@ -206,6 +209,9 @@ namespace AtmosphericDamage
 
         private void ProcessCharacterDamage()
         {
+            if (_topEntityCache == null)
+                return;
+
             foreach (IMyEntity entity in _topEntityCache)
             {
                 var character = entity as IMyCharacter;
