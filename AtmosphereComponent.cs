@@ -30,6 +30,8 @@ namespace AtmosphericDamage
         private List<IMyEntity> _topEntityCache;
         private int _updateCount;
 
+        private object myParallelLock = new object();
+
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
             _planet = Entity as MyPlanet;
@@ -80,12 +82,14 @@ namespace AtmosphericDamage
                                             {
                                                 try
                                                 {
-                                                    _damageEntities.Clear();
-                                                    _topEntityCache = MyAPIGateway.Entities.GetTopMostEntitiesInSphere(ref _sphere);
-                                                    if (processCharacter && Config.DAMAGE_PLAYERS)
-                                                        ProcessCharacterDamage();
-                                                    if (processPlanet)
-                                                        ProcessDamage();
+                                                    lock(myParallelLock) {
+                                                        _damageEntities.Clear();
+                                                        _topEntityCache = MyAPIGateway.Entities.GetTopMostEntitiesInSphere(ref _sphere);
+                                                        if (processCharacter && Config.DAMAGE_PLAYERS)
+                                                            ProcessCharacterDamage();
+                                                        if (processPlanet)
+                                                            ProcessDamage();
+                                                    }
                                                 }
                                                 catch (Exception ex)
                                                 {
